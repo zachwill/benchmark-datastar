@@ -1,6 +1,6 @@
 # benchmark-datastar
 
-Idea: simple benchmark for jQuery, htmx, and Datastar.
+Idea: simple innerHTML benchmark for jQuery, htmx, and Datastar.
 
 ## Results
 
