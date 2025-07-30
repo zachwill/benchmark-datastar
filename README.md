@@ -1,5 +1,7 @@
 # benchmark-datastar
 
+Idea: simple benchmark for jQuery, htmx, and Datastar.
+
 ## Results
 
 ```
