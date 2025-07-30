@@ -3,7 +3,7 @@ export function benchmark(lib, startTime, endTime) {
   const ms = +(endTime - startTime).toFixed(2);
   const result = { lib, ms, timestamp: Date.now() };
 
-  // Store in global for Playwright to access directly (no parsing needed!)
+  // Store in global for Playwright to access directly
   if (!window.benchmarkResults) window.benchmarkResults = [];
   window.benchmarkResults.push(result);
 
