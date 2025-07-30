@@ -19,9 +19,15 @@ serve({
 
     // Endpoint the pages will call with hx-get / $.get / …
     "/snippet/:size": async (req) => {
-      const { size } = req.params;                 // "small" | "big"
+      const { size } = req.params;  // "small" | "big"
       const html = await fixture(size as any);
-      return new Response(html, { headers: { "content-type": "text/html" } });
+      return new Response(html, {
+        headers: {
+          "content-type": "text/html",
+          "datastar-selector": "#target",
+          "datastar-mode": "inner",
+        }
+      });
     }
   }
 });

@@ -2,25 +2,22 @@
 <html>
 
 <head>
+  <script type="module" src="https://cdn.jsdelivr.net/gh/starfederation/datastar@main/bundles/datastar.js"></script>
   <script type="module">
     import { run } from "./common.js";
 
-    async function datastarFetch(url) {
-      /* TODO replace with real lib */
-      return await (await fetch(url)).text();
-    }
-
-    window.start = size => run("datastar", async done => {
-      const html = await datastarFetch(`/snippet/${size}?bust=` + Math.random());
-      document.getElementById("target").innerHTML = html;
-      done();
+    window.start = size => run("datastar", done => {
+      window._resolve = done;
     });
   </script>
 </head>
 
 <body>
-  <button onclick="start('small')">Run small</button>
-  <button onclick="start('big')">Run big</button>
+  <button data-on-click="start('small'); @get(`/snippet/small?bust=${Math.random()}`)"
+    data-on-datastar-fetch="evt.detail.type === 'finished' && window._resolve?.()">Run small</button>
+  <button data-on-click="start('big'); @get(`/snippet/big?bust=${Math.random()}`)"
+    data-on-datastar-fetch="evt.detail.type === 'finished' && window._resolve?.()">Run big</button>
+
   <div id="target"></div>
 </body>
 

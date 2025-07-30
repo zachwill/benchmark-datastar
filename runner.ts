@@ -2,7 +2,7 @@
 import { chromium } from "playwright";   // bun add -d playwright
 const N = 200;                           // iterations per lib
 const SIZES = ["small", "big"];
-const LIBS = ["jquery", "htmx"] as const;
+const LIBS = ["jquery", "htmx", "datastar"] as const;
 
 const browser = await chromium.launch();
 const page = await browser.newPage();
