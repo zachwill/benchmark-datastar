@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+
+<head>
+  <script src="https://unpkg.com/htmx.org@1.9.11"></script>
+  <script type="module">
+    import { run } from "./common.js";
+    let _resolve;
+    htmx.on("htmx:afterSwap", () => _resolve?.());
+    window.start = size => run("htmx", done => {
+      _resolve = done;
+      htmx.ajax("GET", `/snippet/${size}?bust=` + Math.random(), "#target");
+    });
+  </script>
+</head>
+
+<body>
+  <button onclick="start('small')">Run small</button>
+  <button onclick="start('big')">Run big</button>
+  <div id="target"></div>
+</body>
+
+</html>

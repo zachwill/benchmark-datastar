@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+
+<head>
+  <script type="module">
+    import { run } from "./common.js";
+
+    async function datastarFetch(url) {
+      /* TODO replace with real lib */
+      return await (await fetch(url)).text();
+    }
+
+    window.start = size => run("datastar", async done => {
+      const html = await datastarFetch(`/snippet/${size}?bust=` + Math.random());
+      document.getElementById("target").innerHTML = html;
+      done();
+    });
+  </script>
+</head>
+
+<body>
+  <button onclick="start('small')">Run small</button>
+  <button onclick="start('big')">Run big</button>
+  <div id="target"></div>
+</body>
+
+</html>

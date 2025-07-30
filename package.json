@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "playwright": "^1.54.1"
+  },
+  "name": "benchmark-datastar",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}

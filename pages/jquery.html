@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+  <script type="module">
+    import { run } from "./common.js";
+
+    window.start = (size) => run("jquery", done => {
+      $.get(`/snippet/${size}?bust=` + Math.random(), html => {
+        $("#target").html(html);
+        done();
+      });
+    });
+  </script>
+</head>
+
+<body>
+  <button onclick="start('small')">Run small</button>
+  <button onclick="start('big')">Run big</button>
+  <div id="target"></div>
+</body>
+
+</html>
