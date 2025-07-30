@@ -1,6 +1,9 @@
 # benchmark-datastar
 
-Idea: simple innerHTML benchmark for jQuery, htmx, and Datastar.
+Idea: simple `innerHTML` benchmark for jQuery, htmx, and Datastar.
+
+- `small.html` consists of 100 elements
+- `big.html` consists of 5,000 elements
 
 ## Results
 
@@ -20,11 +23,10 @@ datastar   median 29.90 ms
 
 ## Installation
 
-To install Playwright dependencies:
+To install CLI progress and Playwright dependencies:
 
 ```bash
 bun install
-
 # Note: downloads Chromium, Firefox, WebKit, etc
 bunx playwright install --with-deps
 ```
@@ -35,10 +37,8 @@ To run:
 
 ```bash
 # Start the server in one terminal
-bun run server.ts
+bun server.ts
 
 # Run the benchmark in another
-bun run runner.ts
+bun runner.ts
 ```
-
-This project was created using `bun init` in bun v1.2.18. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.

@@ -7,7 +7,7 @@ export function benchmark(lib, startTime, endTime) {
   if (!window.benchmarkResults) window.benchmarkResults = [];
   window.benchmarkResults.push(result);
 
-  // Also log for debugging
+  // Also console.log for debugging
   console.log(`${lib}: ${ms}ms`);
   return result;
 }

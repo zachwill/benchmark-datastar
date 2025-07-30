@@ -8,8 +8,8 @@
 
     let currentStartTime = null;
 
-    // Handle datastar fetch completion
     document.addEventListener('datastar-fetch', (event) => {
+      // Fetch "started" normally has earlier evt.timeStamp than clicked event
       if (event.detail.type === 'started') {
         currentStartTime = event.timeStamp;
       } else if (event.detail.type === 'finished') {
