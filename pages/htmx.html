@@ -21,15 +21,16 @@
       if (event.target.id === 'small' || event.target.id === 'big') {
         currentStartTime = event.timeStamp;
         const size = event.target.id;
-        htmx.ajax("GET", `/snippet/${size}?bust=` + Math.random(), "#target");
+        // I've tested with both htmx.ajax and hx-get, but the results are the same
+        // htmx.ajax("GET", `/snippet/${size}?bust=` + Math.random(), "#target");
       }
     });
   </script>
 </head>
 
 <body>
-  <button id="small">Run small</button>
-  <button id="big">Run big</button>
+  <button id="small" hx-get="/snippet/small" hx-target="#target">Run small</button>
+  <button id="big" hx-get="/snippet/big" hx-target="#target">Run big</button>
   <div id="target"></div>
 </body>
 
