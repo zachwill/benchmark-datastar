@@ -4,20 +4,29 @@
 <head>
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
   <script type="module">
-    import { run } from "./common.js";
+    import { benchmark } from "./common.js";
 
-    window.start = (size) => run("jquery", done => {
-      $.get(`/snippet/${size}?bust=` + Math.random(), html => {
+    let currentStartTime = null;
+
+    // Handle button clicks and capture start timestamp
+    $(document).on('click', '#small, #big', function (event) {
+      currentStartTime = event.timeStamp;
+      const size = this.id;
+
+      $.get(`/snippet/${size}?bust=` + Math.random(), function (html) {
         $("#target").html(html);
-        done();
+        // Capture end timestamp and benchmark
+        const endTime = performance.now();
+        benchmark("jquery", currentStartTime, endTime);
+        currentStartTime = null;
       });
     });
   </script>
 </head>
 
 <body>
-  <button onclick="start('small')">Run small</button>
-  <button onclick="start('big')">Run big</button>
+  <button id="small">Run small</button>
+  <button id="big">Run big</button>
   <div id="target"></div>
 </body>
 

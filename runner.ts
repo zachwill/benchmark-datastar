@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { chromium } from "playwright";   // bun add -d playwright
-const N = 200;                           // iterations per lib
+const N = 20;                           // iterations per lib
 const SIZES = ["small", "big"];
 const LIBS = ["jquery", "htmx", "datastar"] as const;
 
@@ -12,30 +12,38 @@ interface Sample { lib: string; size: string; ms: number; }
 async function collect(lib: string, size: string): Promise<Sample[]> {
   const out: Sample[] = [];
   await page.goto(`http://localhost:3000/${lib}`);
-  await page.waitForFunction(() => typeof window.start === "function");
+  await page.waitForLoadState('domcontentloaded');
+
   for (let i = 0; i < N; i++) {
-    const result = await page.evaluate((s) => {
-      return new Promise(res => {
-        window.start(s);                     // invokes page-global start()
-        window.addEventListener("bench-done", e => res(e.detail), { once: true });
-      });
-    }, size);
-    out.push({ ...result, size });
+    // Listen for console logs to capture benchmark results
+    const consolePromise = new Promise<Sample>((resolve) => {
+      const handler = (msg: any) => {
+        const text = msg.text();
+        // Parse benchmark console log: "htmx: 123.45ms"
+        const match = text.match(/^(\w+): ([\d.]+)ms$/);
+        if (match) {
+          const [, benchLib, ms] = match;
+          if (benchLib === lib) {
+            page.off('console', handler);
+            resolve({ lib: benchLib, size, ms: parseFloat(ms) });
+          }
+        }
+      };
+      page.on('console', handler);
+    });
+
+    // Actually click the button!
+    await page.click(`#${size}`);
+
+    // Wait for the benchmark result
+    const result = await consolePromise;
+    out.push(result);
+
+    // Small delay between iterations
+    await page.waitForTimeout(100);
   }
   return out;
 }
-
-// Patch pages to dispatch bench-done (so the runner above works)
-page.exposeFunction("benchResult", (data: any) => {
-  page.evaluate(data => {
-    window.dispatchEvent(new CustomEvent("bench-done", { detail: data }));
-  }, data);
-});
-
-// Monkey-patch the table writer so it calls benchResult()
-await page.addInitScript(() => {
-  console.table = (rows) => benchResult(rows[0]);
-});
 
 // ---------- run ----------
 const all: Sample[] = [];

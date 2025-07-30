@@ -4,19 +4,29 @@
 <head>
   <script type="module" src="https://cdn.jsdelivr.net/gh/starfederation/datastar@main/bundles/datastar.js"></script>
   <script type="module">
-    import { run } from "./common.js";
+    import { benchmark } from "./common.js";
 
-    window.start = size => run("datastar", done => {
-      window._resolve = done;
+    let currentStartTime = null;
+
+    // Handle datastar fetch completion
+    document.addEventListener('datastar-fetch', (event) => {
+      if (event.detail.type === 'started') {
+        currentStartTime = event.timeStamp;
+      } else if (event.detail.type === 'finished') {
+        const result = benchmark("datastar", currentStartTime, event.timeStamp);
+        currentStartTime = null;
+      }
     });
   </script>
 </head>
 
 <body>
-  <button data-on-click="start('small'); @get(`/snippet/small?bust=${Math.random()}`)"
-    data-on-datastar-fetch="evt.detail.type === 'finished' && window._resolve?.()">Run small</button>
-  <button data-on-click="start('big'); @get(`/snippet/big?bust=${Math.random()}`)"
-    data-on-datastar-fetch="evt.detail.type === 'finished' && window._resolve?.()">Run big</button>
+  <button id="small" data-on-click="@get(`/snippet/small?bust=${Math.random()}`)">
+    Run small
+  </button>
+  <button id="big" data-on-click="@get(`/snippet/big?bust=${Math.random()}`)">
+    Run big
+  </button>
 
   <div id="target"></div>
 </body>

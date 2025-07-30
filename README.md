@@ -6,12 +6,14 @@ Idea: simple benchmark for jQuery, htmx, and Datastar.
 
 ```
 === small.html ===
-jquery     median 0.60 ms
-htmx       median 1.00 ms
+jquery     median 15.75 ms
+htmx       median 17.55 ms
+datastar   median 16.00 ms
 
 === big.html ===
-jquery     median 4.90 ms
-htmx       median 126.30 ms
+jquery     median 27.15 ms
+htmx       median 149.05 ms
+datastar   median 37.10 ms
 ```
 
 ---

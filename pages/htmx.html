@@ -4,19 +4,32 @@
 <head>
   <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.6/dist/htmx.min.js"></script>
   <script type="module">
-    import { run } from "./common.js";
-    let _resolve;
-    htmx.on("htmx:afterSwap", () => _resolve?.());
-    window.start = size => run("htmx", done => {
-      _resolve = done;
-      htmx.ajax("GET", `/snippet/${size}?bust=` + Math.random(), "#target");
+    import { benchmark } from "./common.js";
+
+    let currentStartTime = null;
+
+    // Handle htmx completion
+    htmx.on("htmx:afterSwap", (event) => {
+      if (currentStartTime !== null) {
+        benchmark("htmx", currentStartTime, event.timeStamp);
+        currentStartTime = null;
+      }
+    });
+
+    // Handle button clicks and capture start timestamp
+    document.addEventListener('click', function (event) {
+      if (event.target.id === 'small' || event.target.id === 'big') {
+        currentStartTime = event.timeStamp;
+        const size = event.target.id;
+        htmx.ajax("GET", `/snippet/${size}?bust=` + Math.random(), "#target");
+      }
     });
   </script>
 </head>
 
 <body>
-  <button onclick="start('small')">Run small</button>
-  <button onclick="start('big')">Run big</button>
+  <button id="small">Run small</button>
+  <button id="big">Run big</button>
   <div id="target"></div>
 </body>
 
