@@ -5,11 +5,11 @@
 ```
 === small.html ===
 jquery     median 0.60 ms
-htmx       median 0.90 ms
+htmx       median 1.00 ms
 
 === big.html ===
-jquery     median 5.80 ms
-htmx       median 124.70 ms
+jquery     median 4.90 ms
+htmx       median 126.30 ms
 ```
 
 ---
