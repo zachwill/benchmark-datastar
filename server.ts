@@ -3,21 +3,21 @@ import jqueryPage from "./pages/jquery.html";
 import htmxPage from "./pages/htmx.html";
 import datastarPage from "./pages/datastar.html";
 
-// tiny helper – return the requested fixture (small|big)
 function fixture(size: "small" | "big") {
   const path = `./fixtures/${size}.html`;
-  return Bun.file(path).text();          // cached in memory by Bun
+  // Cached in memory by Bun
+  return Bun.file(path).text();
 }
 
 serve({
-  development: true,                     // HMR + clear error traces
+  development: true,
   routes: {
     "/jquery": jqueryPage,
     "/htmx": htmxPage,
     "/datastar": datastarPage,
     "/common.js": () => new Response(Bun.file("./pages/common.js"), { headers: { "content-type": "text/javascript" } }),
 
-    // Endpoint the pages will call with hx-get / $.get / …
+    // Endpoint the pages will call
     "/snippet/:size": async (req) => {
       const { size } = req.params;  // "small" | "big"
       const html = await fixture(size as any);
