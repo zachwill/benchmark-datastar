@@ -2,9 +2,9 @@
 import { chromium, type Page, type Browser } from "playwright";
 import cliProgress from "cli-progress";
 
-const ITERATIONS = 100;
+const ITERATIONS = 20;
 const SIZES = ["small", "big"] as const;
-const LIBS = ["jquery", "htmx", "datastar"] as const;
+const LIBS = ["datastar", "htmx", "idiomorph", "jquery"] as const;
 const BASE_URL = "http://localhost:3000";
 
 declare global {

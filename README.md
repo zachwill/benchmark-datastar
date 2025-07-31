@@ -9,14 +9,16 @@ Idea: simple `innerHTML` benchmark for jQuery, htmx, and Datastar.
 
 ```
 === small.html ===
-jquery     median  15.60 ms
-htmx       median  16.90 ms
-datastar   median  16.20 ms
+datastar   median   16.20 ms
+htmx       median   16.75 ms
+idiomorph  median   19.30 ms
+jquery     median   16.15 ms
 
 === big.html ===
-jquery     median  23.40 ms
-htmx       median 140.70 ms
-datastar   median  29.90 ms
+datastar   median   29.05 ms
+htmx       median  139.95 ms
+idiomorph  median 2867.80 ms
+jquery     median   22.60 ms
 ```
 
 ---

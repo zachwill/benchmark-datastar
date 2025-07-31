@@ -1,7 +1,8 @@
 import { serve } from "bun";
-import jqueryPage from "./pages/jquery.html";
-import htmxPage from "./pages/htmx.html";
-import datastarPage from "./pages/datastar.html";
+import datastar from "./pages/datastar.html";
+import htmx from "./pages/htmx.html";
+import idiomorph from "./pages/idiomorph.html";
+import jquery from "./pages/jquery.html";
 
 function fixture(size: "small" | "big") {
   const path = `./fixtures/${size}.html`;
@@ -12,9 +13,10 @@ function fixture(size: "small" | "big") {
 serve({
   development: true,
   routes: {
-    "/jquery": jqueryPage,
-    "/htmx": htmxPage,
-    "/datastar": datastarPage,
+    "/jquery": jquery,
+    "/htmx": htmx,
+    "/datastar": datastar,
+    "/idiomorph": idiomorph,
     "/common.js": () => new Response(Bun.file("./pages/common.js"), { headers: { "content-type": "text/javascript" } }),
 
     // Endpoint the pages will call

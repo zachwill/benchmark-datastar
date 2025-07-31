@@ -29,8 +29,8 @@
 </head>
 
 <body>
-  <button id="small" hx-get="/snippet/small" hx-target="#target">Run small</button>
-  <button id="big" hx-get="/snippet/big" hx-target="#target">Run big</button>
+  <button id="small" hx-get="/snippet/small" hx-target="#target" hx-swap="innerHTML">Run small</button>
+  <button id="big" hx-get="/snippet/big" hx-target="#target" hx-swap="innerHTML">Run big</button>
   <div id="target"></div>
 </body>
 
