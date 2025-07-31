@@ -6,7 +6,7 @@ import idiomorph from "./pages/idiomorph.html";
 import jquery from "./pages/jquery.html";
 import vanilla from "./pages/vanilla.html";
 
-function fixture(size: "small" | "big") {
+function fixture(size: "small" | "big" | "small-replace" | "big-replace") {
   const path = `./fixtures/${size}.html`;
   // Cached in memory by Bun
   return Bun.file(path).text();
@@ -39,7 +39,7 @@ serve({
     // Endpoint the pages will call
     "/snippet-replace/:size": async (req) => {
       const { size } = req.params;  // "small" | "big"
-      const html = await fixture(size as any);
+      const html = await fixture(`${size}-replace`);
       return new Response(html, {
         headers: {
           "content-type": "text/html",
