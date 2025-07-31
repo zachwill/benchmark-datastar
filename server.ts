@@ -1,8 +1,10 @@
 import { serve } from "bun";
 import datastar from "./pages/datastar.html";
+import datastarReplace from "./pages/datastar-replace.html";
 import htmx from "./pages/htmx.html";
 import idiomorph from "./pages/idiomorph.html";
 import jquery from "./pages/jquery.html";
+import vanilla from "./pages/vanilla.html";
 
 function fixture(size: "small" | "big") {
   const path = `./fixtures/${size}.html`;
@@ -16,7 +18,9 @@ serve({
     "/jquery": jquery,
     "/htmx": htmx,
     "/datastar": datastar,
+    "/datastar-replace": datastarReplace,
     "/idiomorph": idiomorph,
+    "/vanilla": vanilla,
     "/common.js": () => new Response(Bun.file("./pages/common.js"), { headers: { "content-type": "text/javascript" } }),
 
     // Endpoint the pages will call
@@ -28,6 +32,19 @@ serve({
           "content-type": "text/html",
           "datastar-selector": "#target",
           "datastar-mode": "inner",
+        }
+      });
+    },
+
+    // Endpoint the pages will call
+    "/snippet-replace/:size": async (req) => {
+      const { size } = req.params;  // "small" | "big"
+      const html = await fixture(size as any);
+      return new Response(html, {
+        headers: {
+          "content-type": "text/html",
+          "datastar-selector": "#target",
+          "datastar-mode": "replace",
         }
       });
     }

@@ -17,13 +17,13 @@
       const response = await fetch(`/snippet/${size}?bust=` + Math.random());
       const html = await response.text();
 
-      // Use Idiomorph to morph the target element's innerHTML
+      // Replace the target element's innerHTML
       const targetElement = document.getElementById('target');
-      Idiomorph.morph(targetElement, html, { morphStyle: 'innerHTML' });
+      targetElement.innerHTML = html;
 
       // Capture end timestamp and benchmark
       const endTime = performance.now();
-      benchmark('idiomorph', currentStartTime, endTime);
+      benchmark('vanilla', currentStartTime, endTime);
       currentStartTime = null;
     });
   </script>
