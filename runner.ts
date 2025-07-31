@@ -79,12 +79,12 @@ function createProgressBar(): cliProgress.SingleBar {
 
 function printResults(samples: Sample[]): void {
   for (const size of SIZES) {
-    console.log(`\n=== ${size}.html ===`);
+    console.log(`\n=== ${size}.html (median) ===`);
     for (const lib of LIBS) {
       const subset = samples.filter(s => s.lib === lib && s.size === size);
       const times = subset.map(s => s.ms);
       const medianTime = calculateMedian(times);
-      console.log(lib.padEnd(10), "median", medianTime.toFixed(2) + " ms");
+      console.log(lib.padEnd(10), medianTime.toFixed(2) + " ms");
     }
   }
 }
