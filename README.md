@@ -1,6 +1,6 @@
 # benchmark-datastar
 
-Idea: simple `innerHTML` benchmark for jQuery, htmx, and Datastar.
+Idea: simple `innerHTML` benchmark for Datastar, htmx, Idiomorph, and jQuery.
 
 - `small.html` consists of 100 elements
 - `big.html` consists of 5,000 elements
