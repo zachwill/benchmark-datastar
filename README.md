@@ -11,8 +11,8 @@ Idea: simple `innerHTML` benchmark for Datastar, htmx, Idiomorph, and jQuery.
 === small.html (median) ===
 vanilla            15.90 ms
 jquery             16.10 ms
-datastar           16.10 ms
 datastar-replace   16.10 ms
+datastar           16.10 ms
 htmx               17.10 ms
 idiomorph          19.45 ms
 
